@@ -1,0 +1,92 @@
+/* Reset some default spacing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/*dev*/
+#style {
+    display:block;
+    float: left;
+    width: 95%;
+    margin-left: 15px;
+}
+
+/* Body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Header */
+header {
+    background-color: #222;
+    color: white;
+    padding: 10px 20px;
+    display: flex;                  /* enable flex layout */
+    justify-content: space-between; /* push items to edges */
+    align-items: center;
+    
+    
+}
+header h1 {
+    margin:0
+}
+header a {
+    color:white;
+    text-decoration: none;
+    font-weight: bold;
+    
+}
+header a:hover {
+    color: #25e9d8;
+}
+
+/* Navigation */
+nav {
+    background-color: #444;
+    padding: 10px 0;
+    width: 30px;
+    height: max-content;
+    float: left;
+}
+
+nav ul {
+    list-style: none;
+    display: block;
+    justify-content: center;
+}
+
+nav ul li a {
+    display:flex;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    /*color: #25e9d8;*/
+    color: black;
+}
+
+/* Main Content */
+main {
+    padding: 20px;
+    min-height: 60vh;
+}
+
+/* Footer */
+body footer {
+    background-color: #222;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+}
+body i #readed {
+    background-color: #222;
+    color: white;
+}
+

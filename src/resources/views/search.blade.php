@@ -50,11 +50,11 @@
 $(document).ready(function() {
     $('#ingredients').select2({
         placeholder: "Type ingredient name...",
-        allowClear: true,
+        allowClear: false,
         closeOnSelect: false,
-        width: '100%'
     });
 });
+</script>
 </script>
 <style>
 .select2-container--default .select2-selection--multiple {

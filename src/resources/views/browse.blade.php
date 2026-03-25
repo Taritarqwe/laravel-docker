@@ -2,6 +2,8 @@
 
 @section("title", "browse")
 
-@section("content")
+@section("content") 
+<form action="{{ route('search.results') }}" method="GET">
+</form>
 
 @endsection

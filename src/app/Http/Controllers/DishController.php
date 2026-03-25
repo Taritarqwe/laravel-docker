@@ -9,10 +9,16 @@ use Illuminate\Http\Request;
 class DishController extends Controller{
     public function ingredients()
     {
-        $ingredients = DB::select('select * from ingredients');
+        $ingredients = DB::select('select * from ingredients where verified = 1');
 
         return view('search', compact('ingredients'));
     }
+    public function ingredient()
+    {
+        $ingredients = DB::select('select * from ingredients where verified = 1');
+
+        return view('create', compact('ingredients'));
+    }   
     public function processSearch(Request $request)
     {
         // Start a base query targeting your main table
@@ -29,18 +35,15 @@ class DishController extends Controller{
         }
 
         // 3. Filter by Checkboxes (Vegan / Vegetarian)
-        // Checkboxes only send data if they are checked, so we use has()
         if ($request->has('vegan')) {
-            $query->where('vegan', true); // or 1, depending on your database setup
+            $query->where('vegan', 1);
         }
         if ($request->has('vegeterian')) {
-            $query->where('vegeterian', true); 
+            $query->where('vegeterian', 1); 
         }
 
-        // 4. Filter by Ingredients (The tricky part!)
+        // 4. Filter by Ingredients
         if ($request->filled('ingredients')) {
-            // We use a subquery to look inside the dish_ingredient table.
-            // This grabs any dish that contains AT LEAST ONE of the selected ingredients.
             $query->whereIn('id', function($subquery) use ($request) {
                 $subquery->select('id_dish')
                          ->from('dish_ingredient')
@@ -51,7 +54,11 @@ class DishController extends Controller{
         // 5. Execute the query and get the matching dishes
         $dishes = $query->get();
 
-        // 6. Pass the results to a view (e.g., results.blade.php)
-        return view('results', compact('dishes'));
+        // 6. Pass the results to a view
+        return view('show', compact('dishes'));
+    }
+
+    public function createdish(){
+
     }
 }

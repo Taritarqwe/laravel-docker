@@ -12,9 +12,6 @@ Route::get('/main', function () {
 Route::get('/browse', function () {
     return view('browse');
 })->name('browse'); 
-Route::get('/create', function () {
-    return view('create');
-})->middleware('auth')->name('create');
 Route::get('/signup', function () {
     return view('signup');
 })->middleware('guest')->name('signup');
@@ -28,5 +25,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 use App\Http\Controllers\DishController;
 
 Route::get('/search', [DishController::class, 'ingredients'])->name('search');
-
+Route::get('/create', [DishController::class, 'ingredient'])->middleware('auth')->name('create');
 Route::get('/search-results', [DishController::class, 'processSearch'])->name('search.results');
+route::post('/create', [DishController::class, 'createdish'])->name('create.dish');

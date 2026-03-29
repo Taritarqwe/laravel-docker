@@ -3,13 +3,17 @@
 @section("title", "search")
 
 @section("content")
+@foreach($dishes as $dish)
+
 <div style="max-width: 800px; margin: 40px auto; font-family: monospace, sans-serif; padding: 20px;">
 
     <div style="display: flex; gap: 20px; margin-bottom: 30px;">
         
-        <div style="width: 150px; height: 150px; border: 1px solid black; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-            @if($dish->photo)
-                <img src="{{ asset('storage/' . $dish->photo) }}" alt="{{ $dish->name }}" style="max-width: 100%; max-height: 100%; object-fit: cover;">
+        <div style="width: 150px; height: 150px; border: 1px solid black; display: flex; align-items: center; justify-content: center;">
+            @if($dish->photoURL)
+                <img src="{{ asset($dish->photoURL) }}" 
+                     alt="{{ $dish->name }}" 
+                     style="max-width: 100%; max-height: 100%; object-fit: cover;">
             @else
                 <span>img</span>
             @endif
@@ -28,10 +32,13 @@
     </div>
 
     <div style="margin-bottom: 40px;">
-        url of recipe: <a href="{{ $dish->recipe_url }}" target="_blank" style="color: blue; text-decoration: none;">{{ $dish->recipe_url }}</a>
+        url of recipe: 
+        <a href="{{ $dish->recipeURL }}" target="_blank">
+            {{ $dish->recipeURL }}
+        </a>
     </div>
 
-    <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+    <div style="display: flex; justify-content: space-between;">
         
         <div>
             {{ $dish->type }}
@@ -39,16 +46,23 @@
 
         <div>
             restrictions: 
-            vegeterian <span>{!! $dish->vegeterian ? '&#10003;' : '&#10005;' !!}</span> &nbsp;&nbsp;
+            vegeterian <span>{!! $dish->vegeterian ? '&#10003;' : '&#10005;' !!}</span>
+            &nbsp;&nbsp;
             vegan <span>{!! $dish->vegan ? '&#10003;' : '&#10005;' !!}</span>
         </div>
 
         <div style="text-align: right;">
             created by:<br>
-            {{ $dish->username }}
+            {{ $dish->userName }}
         </div>
     </div>
 
+    <div>
+        matches: {{ $dish->match_count ?? 0 }}
+    </div>
+
 </div>
+
+@endforeach
 
 @endsection

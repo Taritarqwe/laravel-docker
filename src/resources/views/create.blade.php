@@ -3,12 +3,14 @@
 @section("title", "create")
 
 @section("content")
-<form action="{{ route('create.dish') }}" method="post">
+<form action="{{ route('create.dish') }}" method="post" enctype="multipart/form-data">
     @csrf
-    <input type="text" id="name" placeholder="Name of dish">
+    
+    <input type="text" id="name" name="name" placeholder="Name of dish" required>
     <br>
+    
     <label for="type">Meal type:</label>
-    <select name="type" id="type" >
+    <select name="type" id="type" required>
         <option value="">-</option>
         <option value="breakfast">breakfast</option>
         <option value="soup">soup</option>
@@ -17,39 +19,40 @@
         <option value="dessert">dessert</option>
     </select>
     <br>
+    
     <label for="kitchen">Kitchen:</label>
-    <select name="kitchen" id="kitchen">
+    <select name="kitchen" id="kitchen" required>
         <option value="">-</option>
         <option value="american">american</option>
         <option value="asian">asian</option>
-        <option value="british">british</option>
-        <option value="french">french</option>
-        <option value="greek">greek</option>
-        <option value="indian">indian</option>
-        <option value="italian">italian</option>
-        <option value="mexican">mexican</option>
-    </select>
+        </select>
     <br>
-    <input type="checkbox" default="FALSE" name="vegan">
+    
+    <input type="checkbox" name="vegan" id="vegan" value="1">
     <label for="vegan">vegan</label>
-    <input type="checkbox" default="FALSE" name="vegeterian">
+    <input type="checkbox" name="vegeterian" id="vegeterian" value="1">
     <label for="vegeterian">vegeterian</label>
     <br>
-    <input type="text" id="description" placeholder="describe the dish">
+    
+    <input type="text" id="description" name="description" placeholder="describe the dish" required>
     <br>
-    <input type="text" id="url" placeholder="paste the url of recipe">
+    
+    <input type="url" id="url" name="recipeURL" placeholder="paste the url of recipe" required>
     <br>
-    <label for="PhotoURL">chose the pictuer of your dish:</label>
-    <input type="file" id="PhotoURL" accept="image/png, image/jpeg">
+    
+    <label for="PhotoURL">choose the picture of your dish:</label>
+    <input type="file" id="PhotoURL" name="photoURL" accept="image/png, image/jpeg" required>
     <br>
-    <label for="ingredients">ingridients:</label>
-    <select name="ingredients[]" id="ingredients" multiple style="width:100%">
+    
+    <label for="ingredients">ingredients:</label>
+    <select name="ingredients[]" id="ingredients" multiple style="width:100%" required>
         @foreach($ingredients as $ingredient)
             <option value="{{ $ingredient->id }}">
                 {{ $ingredient->ingredient }}
             </option>
         @endforeach
     </select>
+    
     <button type="submit">submit</button>
 </form>
 

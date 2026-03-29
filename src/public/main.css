@@ -1,92 +1,239 @@
-/* Reset some default spacing */
+:root {
+    --border-size: 2px;
+    --sidebar-width: 70px;
+    --sidebar-expanded: 200px;
+    --header-height: 80px;
+    --footer-height: 60px;
+    --black: #000000;
+    --white: #ffffff;
+    --transition: 0.3s ease;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: sans-serif;
+    display: grid;
+    /* Grid areas: Header (top), Sidebar/Main (middle), Footer (bottom) */
+    grid-template-areas: 
+        "header header"
+        "nav main"
+        "footer footer";
+    grid-template-rows: var(--header-height) 1fr var(--footer-height);
+    grid-template-columns: var(--sidebar-width) 1fr;
+    min-height: 100vh;
+}
+
+:root {
+    --black: #000000;
+    --white: #ffffff;
+    --nav-collapsed: 60px;
+    --nav-expanded: 180px;
+    --header-height: 70px;
+}
+
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-/*dev*/
-#style {
-    display:block;
-    float: left;
-    width: 95%;
-    margin-left: 15px;
 }
 
-/* Body */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    line-height: 1.6;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Pushes the footer to the bottom */
+    background-color: var(--white);
+    color: var(--black);
 }
 
-/* Header */
+/* --- HEADER --- */
 header {
-    background-color: #222;
-    color: white;
-    padding: 10px 20px;
-    display: flex;                  /* enable flex layout */
-    justify-content: space-between; /* push items to edges */
+    background-color: var(--black);
+    color: var(--white);
+    height: var(--header-height);
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    
-    
+    padding: 0 30px;
+    position: relative;
+    z-index: 100; /* Stays on top */
 }
-header h1 {
-    margin:0
+
+header input[type="text"] {
+    padding: 8px 15px;
+    width: 300px;
+    border-radius: 4px;
+    border: none;
+    outline: none;
 }
-header a {
-    color:white;
+
+.auth-box .btn {
+    background-color: transparent;
+    color: var(--white);
+    border: 1px solid var(--white);
+    padding: 8px 15px;
+    cursor: pointer;
     text-decoration: none;
-    font-weight: bold;
-    
-}
-header a:hover {
-    color: #25e9d8;
+    font-size: 0.9rem;
+    transition: 0.2s;
 }
 
-/* Navigation */
-nav {
-    background-color: #444;
-    padding: 10px 0;
-    width: 30px;
-    height: max-content;
-    float: left;
+.auth-box .btn:hover {
+    background-color: var(--white);
+    color: var(--black);
 }
 
-nav ul {
+/* --- SIDE NAV --- */
+.sidenav {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    height: calc(100vh - var(--header-height));
+    width: var(--nav-collapsed);
+    background-color: var(--black);
+    overflow-x: hidden;
+    transition: width 0.3s ease;
+    z-index: 90;
+}
+
+.sidenav:hover {
+    width: var(--nav-expanded);
+}
+
+.sidenav ul {
     list-style: none;
-    display: block;
-    justify-content: center;
 }
 
-nav ul li a {
-    display:flex;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-nav ul li a:hover {
-    /*color: #25e9d8;*/
-    color: black;
-}
-
-/* Main Content */
-main {
+.sidenav a {
+    display: flex;
+    align-items: center;
     padding: 20px;
-    min-height: 60vh;
+    color: var(--white);
+    text-decoration: none;
+    white-space: nowrap;
 }
 
-/* Footer */
-body footer {
+.sidenav a:hover {
     background-color: #222;
-    color: white;
+}
+
+.nav-text {
+    margin-left: 15px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.sidenav:hover .nav-text {
+    opacity: 1; /* Shows text only when expanded */
+}
+
+/* --- MAIN CONTENT --- */
+main {
+    flex: 1; /* This tells the main area to fill all available space, pushing the footer down */
+    margin-left: var(--nav-collapsed);
+    padding: 40px;
+}
+
+/* --- FOOTER --- */
+footer {
+    background-color: var(--black);
+    color: var(--white);
     text-align: center;
-    padding: 15px;
+    padding: 25px;
+    width: 100%;
+    position: relative;
+    z-index: 100; /* Makes sure the footer sits on top of the side-nav at the very bottom */
+}
+/* --- FORM STYLING --- */
+
+/* Add spacing between your form elements */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+    max-width: 600px;
     margin-top: 20px;
 }
-body i #readed {
-    background-color: #222;
-    color: white;
+
+/* Text Inputs & Dropdowns (Selects) */
+input[type="text"], 
+select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--black);
+    background-color: var(--white);
+    color: var(--black);
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: 0.2s ease;
 }
 
+input[type="text"]:focus, 
+select:focus {
+    outline: none;
+    background-color: #f4f4f4;
+    border-color: #444;
+}
+
+/* Checkboxes (Vegan/Vegetarian) */
+.checkbox-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    font-weight: bold;
+}
+
+input[type="checkbox"] {
+    accent-color: var(--black); /* Modern trick to turn checkboxes black */
+    transform: scale(1.3);
+    cursor: pointer;
+}
+
+/* File Input (Image upload) */
+input[type="file"] {
+    border: 2px dashed var(--black);
+    padding: 10px;
+    border-radius: 4px;
+    width: 100%;
+    background-color: #fafafa;
+    cursor: pointer;
+}
+
+input[type="file"]::file-selector-button {
+    background-color: var(--black);
+    color: var(--white);
+    border: none;
+    padding: 8px 16px;
+    margin-right: 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background-color: #333;
+}
+
+/* Submit Button */
+button[type="submit"], 
+input[type="submit"] {
+    background-color: var(--black);
+    color: var(--white);
+    border: 2px solid var(--black);
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: 0.2s ease;
+    margin-top: 10px;
+}
+
+button[type="submit"]:hover, 
+input[type="submit"]:hover {
+    background-color: var(--white);
+    color: var(--black);
+}

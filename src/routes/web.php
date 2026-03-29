@@ -28,3 +28,4 @@ Route::get('/search', [DishController::class, 'ingredients'])->name('search');
 Route::get('/create', [DishController::class, 'ingredient'])->middleware('auth')->name('create');
 Route::get('/search-results', [DishController::class, 'processSearch'])->name('search.results');
 route::post('/create', [DishController::class, 'createdish'])->name('create.dish');
+Route::get('/browse', [DishController::class, 'browse'])->name('browse');
